@@ -1,24 +1,28 @@
 package tests;
 
+import helpers.AccountHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.AccountPage;
 
-public class AccountTest extends AccountPage {
+public class AccountTest {
 
     AccountPage accountPage = new AccountPage();
+    String firstName = AccountHelper.getRandomFirstName();
+    String lastName = AccountHelper.getRandomLastName();
+    String email = AccountHelper.getRandomEmail();
+    String password = "MyPassword!";
 
     @Test (priority = 1)
     public void testRegisterFunctionality() {
         accountPage.clickOnMyProfileBtn();
         accountPage.clickOnRegisterButton();
-        accountPage.setFirstName("Kristina");
-        accountPage.setLastName("Markova");
-        accountPage.setEmail("moj6@gmail.com");
+        accountPage.setFirstName(firstName);
+        accountPage.setLastName(lastName);
+        accountPage.setEmail(email);
         accountPage.setTelephone("+38970123456");
-        String myPassword = "MyPassword!";
-        accountPage.setPassword(myPassword);
-        accountPage.setConfirmPassword(myPassword);
+        accountPage.setPassword(password);
+        accountPage.setConfirmPassword(password);
         accountPage.clickOnSubscribeYesRadioButton();
         accountPage.clickOnGeneralConditionsCheckBox();
         accountPage.clickOnContinueButton();
@@ -28,9 +32,19 @@ public class AccountTest extends AccountPage {
 
     @Test (priority = 2)
     public void testLoginFunctionality() {
+        //Go to account / login page
         accountPage.clickOnMyProfileBtn();
-        accountPage.setEmail("moj6@gmail.com");
-        accountPage.setPassword("MyPassword!");
+
+        //Validations
+        accountPage.clickOnLoginButton();
+        Assert.assertTrue(accountPage
+                .getWarningLoginAlertText()
+                .toLowerCase()
+                .contains("предупредување: не се совпаѓаат адресата за е-пошта и / или лозинка."));
+
+        //Valid login case
+        accountPage.setEmail(email);
+        accountPage.setPassword(password);
         accountPage.clickOnLoginButton();
 
         Assert.assertEquals(accountPage.getMyAccountHeaderText(), "Моја сметка");
@@ -38,21 +52,24 @@ public class AccountTest extends AccountPage {
 
     @Test (priority = 3)
     public void testEditAccountFunctionality() {
+        //Log in
         accountPage.clickOnMyProfileBtn();
-        accountPage.setEmail("moj6@gmail.com");
-        accountPage.setPassword("MyPassword!");
+        accountPage.setEmail(email);
+        accountPage.setPassword(password);
         accountPage.clickOnLoginButton();
 
+        //Edit account
         accountPage.clickOnEditAccountButton();
-        accountPage.editFirstNameInput("Kiki");
-        accountPage.editLastNameInput("Markovaaa");
-        accountPage.editEmailInput("nov6@gmail.com");
+        accountPage.editFirstNameInput(AccountHelper.getRandomFirstName());
+        accountPage.editLastNameInput(AccountHelper.getRandomLastName());
+        accountPage.editEmailInput(AccountHelper.getRandomEmail());
         accountPage.editTelephoneInput("+389663885");
         accountPage.clickOnContinueEditingButton();
-        String successfulEditingText = "×\n"
-                + "Вашата сметка е успешно ажурирана.";
 
-        Assert.assertEquals(getConfirmationMessageOnEditingText(), successfulEditingText);
+        Assert.assertTrue(accountPage
+                .getConfirmationMessageOnEditingText()
+                .toLowerCase()
+                .contains("вашата сметка е успешно ажурирана."));
     }
 
 }

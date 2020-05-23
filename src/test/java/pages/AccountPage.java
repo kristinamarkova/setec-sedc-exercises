@@ -24,6 +24,7 @@ public class AccountPage extends BaseTest {
     // Login page objects
     By loginButton = By.xpath("//*[@id=\"content\"]/div/div[2]/div/form/input[1]");
     By myAccountHeaderText = By.xpath("//*[@id=\"content\"]/h2[1]");
+    By warningLoginAlert = By.xpath("//*[@id=\"content\"]/div[1]");
 
     // Edit account objects
     By editAccountButton = By.xpath("//*[@id=\"content\"]/ul[1]/li[1]/a");
@@ -36,7 +37,7 @@ public class AccountPage extends BaseTest {
         driver.findElement(myProfileButton).click();
     }
 
-    // FHere start methods doing actions on Register page
+    // Here start methods doing actions on Register page
     public void clickOnRegisterButton() {
         driver.findElement(registerButton).click();
     }
@@ -96,6 +97,10 @@ public class AccountPage extends BaseTest {
 
     public String getMyAccountHeaderText() {
         return driver.findElement(myAccountHeaderText).getText();
+    }
+
+    public String getWarningLoginAlertText() {
+        return driver.findElement(warningLoginAlert).getText();
     }
 
     // Here start methods doing actions on Edit account page

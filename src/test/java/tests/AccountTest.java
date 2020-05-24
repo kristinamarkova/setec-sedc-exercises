@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.AccountPage;
 
-public class AccountTest {
+public class AccountTest extends BaseTest {
 
     AccountPage accountPage = new AccountPage();
     String firstName = AccountHelper.getRandomFirstName();
@@ -27,38 +27,43 @@ public class AccountTest {
         accountPage.clickOnGeneralConditionsCheckBox();
         accountPage.clickOnContinueButton();
 
-        Assert.assertEquals(accountPage.getConfirmationMessageText(), "Ви благодариме за вашата најава!");
+        Assert.assertTrue(accountPage
+                .getConfirmationMessageText()
+                .toLowerCase().contains("ви благодариме за вашата најава!"));
     }
 
     @Test (priority = 2)
     public void testLoginFunctionality() {
-        //Go to account / login page
+        // Go to account / login page
         accountPage.clickOnMyProfileBtn();
 
-        //Validations
+        // Validations
         accountPage.clickOnLoginButton();
         Assert.assertTrue(accountPage
                 .getWarningLoginAlertText()
                 .toLowerCase()
                 .contains("предупредување: не се совпаѓаат адресата за е-пошта и / или лозинка."));
 
-        //Valid login case
+        // Valid login case
         accountPage.setEmail(email);
         accountPage.setPassword(password);
         accountPage.clickOnLoginButton();
 
-        Assert.assertEquals(accountPage.getMyAccountHeaderText(), "Моја сметка");
+        Assert.assertTrue(accountPage
+                .getMyAccountHeaderText()
+                .toLowerCase()
+                .contains("моја сметка"));
     }
 
     @Test (priority = 3)
     public void testEditAccountFunctionality() {
-        //Log in
+        // Log in
         accountPage.clickOnMyProfileBtn();
         accountPage.setEmail(email);
         accountPage.setPassword(password);
         accountPage.clickOnLoginButton();
 
-        //Edit account
+        // Edit account
         accountPage.clickOnEditAccountButton();
         accountPage.editFirstNameInput(AccountHelper.getRandomFirstName());
         accountPage.editLastNameInput(AccountHelper.getRandomLastName());

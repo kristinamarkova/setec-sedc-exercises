@@ -32,7 +32,7 @@ public class AccountPage extends BaseTest {
     By confirmationMessageEditAccount = By.xpath("//*[@id=\"content\"]/div");
 
 
-    // From here until the next comment, are methods doing actions on Homepage
+    // Here start methods doing actions on Homepage
     public void clickOnMyProfileBtn() {
         driver.findElement(myProfileButton).click();
     }

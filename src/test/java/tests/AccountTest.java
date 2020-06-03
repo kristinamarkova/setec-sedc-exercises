@@ -29,7 +29,8 @@ public class AccountTest extends BaseTest {
 
         Assert.assertTrue(accountPage
                 .getConfirmationMessageText()
-                .toLowerCase().contains("ви благодариме за вашата најава!"));
+                .toLowerCase()
+                .contains("ви благодариме за вашата најава!"));
     }
 
     @Test (priority = 2)

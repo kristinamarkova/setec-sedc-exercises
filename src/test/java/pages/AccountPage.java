@@ -107,26 +107,23 @@ public class AccountPage extends BaseTest {
     public void clickOnEditAccountButton() {
         driver.findElement(editAccountButton).click();
     }
+
     public void editFirstNameInput(String newFirstName) {
-        driver.findElement(firstNameInput).click();
         driver.findElement(firstNameInput).clear();
         driver.findElement(firstNameInput).sendKeys(newFirstName);
     }
 
     public void editLastNameInput(String newLastName) {
-        driver.findElement(lastNameInput).click();
         driver.findElement(lastNameInput).clear();
         driver.findElement(lastNameInput).sendKeys(newLastName);
     }
 
     public void editEmailInput(String newEmail) {
-        driver.findElement(emailInput).click();
         driver.findElement(emailInput).clear();
         driver.findElement(emailInput).sendKeys(newEmail);
     }
 
     public void editTelephoneInput(String newTelephone) {
-        driver.findElement(telephoneInput).click();
         driver.findElement(telephoneInput).clear();
         driver.findElement(telephoneInput).sendKeys(newTelephone);
     }
